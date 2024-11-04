@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -29,11 +30,11 @@ import com.plcoding.cryptotracker.ui.theme.CryptoTrackerTheme
 
 @Composable
 fun CoinListItem(
-    conUi: CoinUi,
+    coinUi: CoinUi,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val contentColor = if (isSystemInDarkTheme()) {
+    val contentColor = if(isSystemInDarkTheme()) {
         Color.White
     } else {
         Color.Black
@@ -46,8 +47,8 @@ fun CoinListItem(
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Icon(
-            imageVector = ImageVector.vectorResource(conUi.icon),
-            contentDescription = conUi.name,
+            imageVector = ImageVector.vectorResource(coinUi.icon),
+            contentDescription = coinUi.name,
             tint = MaterialTheme.colorScheme.primary,
             modifier = Modifier.size(85.dp)
         )
@@ -55,13 +56,13 @@ fun CoinListItem(
             modifier = Modifier.weight(1f)
         ) {
             Text(
-                text = conUi.symbol,
+                text = coinUi.symbol,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = contentColor
             )
             Text(
-                text = conUi.name,
+                text = coinUi.name,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Light,
                 color = contentColor
@@ -71,14 +72,14 @@ fun CoinListItem(
             horizontalAlignment = Alignment.End
         ) {
             Text(
-                text = conUi.priceUsd.formatted,
+                text = "$ ${coinUi.priceUsd.formatted}",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = contentColor
             )
-            Spacer(modifier = Modifier.size(8.dp))
+            Spacer(modifier = Modifier.height(8.dp))
             PriceChange(
-                change = conUi.changePercent24Hr,
+                change = coinUi.changePercent24Hr
             )
         }
     }
@@ -90,7 +91,7 @@ fun CoinListItem(
 fun CoinListItemPreview() {
     CryptoTrackerTheme {
         CoinListItem(
-            conUi = previewCoin,
+            coinUi = previewCoin,
             onClick = {},
             modifier = Modifier.background(MaterialTheme.colorScheme.background)
         )
