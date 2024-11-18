@@ -31,10 +31,10 @@ import com.plcoding.cryptotracker.ui.theme.CryptoTrackerTheme
 
 @Composable
 fun InfoCard(
-    modifier: Modifier = Modifier,
     title: String,
     formattedText: String,
     icon: ImageVector,
+    modifier: Modifier = Modifier,
     contentColor: Color = MaterialTheme.colorScheme.onSurface,
 ) {
     val defaultTextStyle = LocalTextStyle.current.copy(
@@ -49,7 +49,7 @@ fun InfoCard(
                 elevation = 15.dp,
                 shape = RectangleShape,
                 ambientColor = MaterialTheme.colorScheme.primary,
-                spotColor = MaterialTheme.colorScheme.primary
+                spotColor = MaterialTheme.colorScheme.primary,
             ),
         shape = RectangleShape,
         border = BorderStroke(
@@ -57,13 +57,13 @@ fun InfoCard(
             color = MaterialTheme.colorScheme.primary
         ),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface,
+            containerColor = MaterialTheme.colorScheme.surfaceContainer,
             contentColor = contentColor
         )
     ) {
         AnimatedContent(
             targetState = icon,
-            modifier = modifier.align(
+            modifier = Modifier.align(
                 Alignment.CenterHorizontally
             ),
             label = "IconAnimation"
@@ -77,22 +77,22 @@ fun InfoCard(
                 tint = contentColor
             )
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         AnimatedContent(
             targetState = formattedText,
-            modifier = modifier.align(
+            modifier = Modifier.align(
                 Alignment.CenterHorizontally
             ),
             label = "ValueAnimation"
         ) { formattedText ->
             Text(
                 text = formattedText,
-                style = defaultTextStyle ,
+                style = defaultTextStyle,
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
             )
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = title,
             textAlign = TextAlign.Center,
