@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalLayoutApi::class)
+
 package com.plcoding.cryptotracker.crypto.presentation.coin_detail
 
 import androidx.compose.animation.AnimatedVisibility
@@ -34,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -45,18 +48,17 @@ import com.plcoding.cryptotracker.crypto.presentation.models.toDisplayableNumber
 import com.plcoding.cryptotracker.ui.theme.CryptoTrackerTheme
 import com.plcoding.cryptotracker.ui.theme.greenBackground
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun CoinDetailScreen(
     state: CoinListState,
     modifier: Modifier = Modifier
 ) {
-    val contentColor = if (isSystemInDarkTheme()) {
+    val contentColor = if(isSystemInDarkTheme()) {
         Color.White
     } else {
         Color.Black
     }
-    if (state.isLoading) {
+    if(state.isLoading) {
         Box(
             modifier = modifier
                 .fillMaxSize(),
@@ -64,7 +66,7 @@ fun CoinDetailScreen(
         ) {
             CircularProgressIndicator()
         }
-    } else if (state.selectedCoin != null) {
+    } else if(state.selectedCoin != null) {
         val coin = state.selectedCoin
         Column(
             modifier = modifier
@@ -100,28 +102,28 @@ fun CoinDetailScreen(
                 horizontalArrangement = Arrangement.Center
             ) {
                 InfoCard(
-                    title = stringResource(R.string.market_cap),
-                    formattedText = "$ ${coin.marketCapUsd.formatted}",
-                    icon = ImageVector.vectorResource(id = R.drawable.stock),
+                    title = stringResource(id = R.string.market_cap),
+                    formattedText = coin.marketCapUsd.formatted,
+                    icon = ImageVector.vectorResource(R.drawable.stock)
                 )
                 InfoCard(
-                    title = stringResource(R.string.price),
-                    formattedText = "$ ${coin.priceUsd.formatted}",
-                    icon = ImageVector.vectorResource(id = R.drawable.dollar),
+                    title = stringResource(id = R.string.price),
+                    formattedText = coin.priceUsd.formatted,
+                    icon = ImageVector.vectorResource(R.drawable.dollar)
                 )
                 val absoluteChangeFormatted =
                     (coin.priceUsd.value * (coin.changePercent24Hr.value / 100))
                         .toDisplayableNumber()
                 val isPositive = coin.changePercent24Hr.value > 0.0
-                val contentColor = if (isPositive) {
-                    if (isSystemInDarkTheme()) Color.Green else greenBackground
-                } else
+                val contentColor = if(isPositive) {
+                    if(isSystemInDarkTheme()) Color.Green else greenBackground
+                } else {
                     MaterialTheme.colorScheme.error
-
+                }
                 InfoCard(
-                    title = stringResource(R.string.change_last_24h),
+                    title = stringResource(id = R.string.change_last_24h),
                     formattedText = absoluteChangeFormatted.formatted,
-                    icon = if (isPositive) {
+                    icon = if(isPositive) {
                         ImageVector.vectorResource(id = R.drawable.trending)
                     } else {
                         ImageVector.vectorResource(id = R.drawable.trending_down)
@@ -189,7 +191,9 @@ private fun CoinDetailScreenPreview() {
             state = CoinListState(
                 selectedCoin = previewCoin,
             ),
-            modifier = Modifier.background(MaterialTheme.colorScheme.background)
+            modifier = Modifier.background(
+                MaterialTheme.colorScheme.background
+            )
         )
     }
 }

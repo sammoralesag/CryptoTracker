@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -109,12 +108,12 @@ fun InfoCard(
 
 @PreviewLightDark
 @Composable
-fun InfoCardPreview() {
+private fun InfoCardPreview() {
     CryptoTrackerTheme {
         InfoCard(
             title = "Price",
-            formattedText = "$123.456",
-            icon = ImageVector.vectorResource(id = R.drawable.dollar),
+            formattedText = "$ 63,157.44",
+            icon = ImageVector.vectorResource(id = R.drawable.dollar)
         )
     }
 }
